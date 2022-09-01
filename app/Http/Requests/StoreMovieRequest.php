@@ -27,7 +27,9 @@ class StoreMovieRequest extends FormRequest
             //
             "title" => "required|max:255",
             "synopsis" => "required",
-            "release_date" => "required"
+            "genres" => "required|array|min:1",
+            "release_date" => "required",
+            "director_id" => "required"
         ];
     }
 }

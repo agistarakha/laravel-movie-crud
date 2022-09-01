@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('content')
 <h1>Movies</h1>
-<a href="{{ route("movies.create") }}" class="btn btn-success">Tambah</a>
+<a href="{{ route("movies.create") }}" class="btn btn-success my-2">Add</a>
 @foreach ($movies as $movie)
 <div class="border d-flex p-2 align-items-center">
     <div class="">{{ $movie->title }}</div>

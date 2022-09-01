@@ -6,7 +6,7 @@
     @endif
   <div class="form-group">
     <label class="form-label" for="Title">Title</label>
-    <input type="text" class="form-control" name="title" id="title" placeholder="Title" value="{{ $movie->title ?? "" }}" required>
+    <input type="text" class="form-control" name="title" id="title" placeholder="Title" value="{{ old("title",$movie->title ?? "") }}" required>
     @error('title')
             <small class="form-text text-muted">{{ $message }}</small>
 
@@ -41,8 +41,32 @@
     </div>
     
     @endforeach
+    
 
     
+  </div>
+  @error('genres')
+            <small class="form-text text-muted">{{ $message }}</small>
+
+    @enderror
+
+  <div class="form-group">
+    <label for="" class="form-label">Director</label>
+    <select class="form-select" name="director_id">
+      @foreach ($directors as $director)
+        <option value="{{ $director->id }}"
+          @if ($movie != "")
+              {{ ($movie->director->id == $director->id) ? "selected":"" }}
+          @endif
+          >
+          {{ $director->name }}
+        </option>
+      @endforeach
+    </select>
+    @error('director_id')
+            <small class="form-text text-muted">{{ $message }}</small>
+
+    @enderror
   </div>
 
   <div class="form-group">
