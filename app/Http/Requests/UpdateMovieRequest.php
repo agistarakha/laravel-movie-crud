@@ -26,7 +26,9 @@ class UpdateMovieRequest extends FormRequest
         return [
             "title" => "required|max:255",
             "synopsis" => "required",
-            "release_date" => "required"
+            "release_date" => "required",
+            "genres" => "required|array|min:1",
+            "director_id" => "required"
             //
         ];
     }

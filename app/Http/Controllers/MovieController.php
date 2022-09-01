@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Movie;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
+use App\Models\Author;
+use App\Models\Director;
 use App\Models\Genre;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Date;
@@ -35,9 +37,11 @@ class MovieController extends Controller
     {
         //
         $genres = Genre::get();
+        $directors = Director::get();
 
         return view("movie.create", [
             "genres" => $genres,
+            "directors" => $directors
         ]);
     }
 
@@ -79,9 +83,12 @@ class MovieController extends Controller
     {
         //
         $genres = Genre::get();
+        $directors = Director::get();
+
         return view("movie.edit", [
             "movie" => $movie,
-            "genres" => $genres
+            "genres" => $genres,
+            "directors" => $directors
         ]);
     }
 

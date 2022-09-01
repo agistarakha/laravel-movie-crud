@@ -16,8 +16,8 @@ class Movie extends Model
         return $this->belongsToMany(Genre::class);
     }
 
-    public function author()
+    public function director()
     {
-        return $this->belongsTo(Author::class);
+        return $this->belongsTo(Director::class);
     }
 }
