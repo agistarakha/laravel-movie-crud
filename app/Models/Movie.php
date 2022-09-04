@@ -11,6 +11,14 @@ class Movie extends Model
 
     protected $guarded = ['id'];
 
+    public function scopeSearch($query, array $filters)
+    {
+
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            return $query->where('title', 'like', '%' . $search . '%');
+        });
+    }
+
     public function genres()
     {
         return $this->belongsToMany(Genre::class);

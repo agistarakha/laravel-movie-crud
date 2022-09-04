@@ -28,6 +28,7 @@ class StoreMovieRequest extends FormRequest
             "title" => "required|max:255",
             "synopsis" => "required",
             "genres" => "required|array|min:1",
+            "cover" => "required|image",
             "release_date" => "required",
             "director_id" => "required"
         ];

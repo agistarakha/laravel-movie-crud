@@ -18,6 +18,7 @@ class CreateMoviesTable extends Migration
             $table->foreignId("director_id");
             $table->string('title');
             $table->text("synopsis");
+            $table->string("cover");
             $table->date("release_date");
             $table->timestamps();
         });

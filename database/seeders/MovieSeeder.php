@@ -27,6 +27,7 @@ class MovieSeeder extends Seeder
                 "title" => $value,
                 "director_id" => rand(1, 4),
                 "synopsis" => Str::random(rand(50, 100)),
+                "cover" => "covers/test.jpeg",
                 "release_date" => Date::today()
             ]);
             DB::table('genre_movie')->insert([

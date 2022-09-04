@@ -1,4 +1,4 @@
-<form class="px-5 d-flex flex-column gap-3 p-5" action="{{($movie != "")? route("movies.update",$movie) : route("movies.store")}}" method="POST">
+<form class="px-5 d-flex flex-column gap-3 p-5" action="{{($movie != "")? route("movies.update",$movie) : route("movies.store")}}" method="POST" enctype="multipart/form-data">
     @csrf
     
     @if (! empty($movie))
@@ -68,7 +68,18 @@
 
     @enderror
   </div>
+  <div class="form-group mb-3">
+    <label for="formFile" class="form-label">Upload Cover</label>
+    <input class="form-control" type="file" id="formFile" name="cover">
+    @error('cover')
+            <small class="form-text text-muted">{{ $message }}</small>
 
+    @enderror
+    @if ($movie != "")
+      <img src="{{ asset("storage/".$movie->cover) }}" alt="">
+        
+    @endif
+  </div>
   <div class="form-group">
     <label class="form-label" for="synopsis">Synopsis</label>
     <textarea class="form-control" id="synopsis" rows="3" name="synopsis">{{ old('synopsis',$movie->synopsis ?? "") }}</textarea>

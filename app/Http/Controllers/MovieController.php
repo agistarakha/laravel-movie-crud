@@ -10,6 +10,7 @@ use App\Models\Director;
 use App\Models\Genre;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Storage;
 
 class MovieController extends Controller
 {
@@ -21,7 +22,7 @@ class MovieController extends Controller
     public function index()
     {
         //
-        $movies = Movie::latest()->paginate(3);
+        $movies = Movie::orderBy("updated_at", "desc")->search(request(['search']))->paginate(3);
 
         return view("movie.index", [
             "movies" => $movies,
@@ -55,6 +56,8 @@ class MovieController extends Controller
     {
         //
         $validated = $request->validated();
+        // dd($validated);
+        $validated["cover"] = $validated["cover"]->store("covers");
         $movie = Movie::create($validated);
         $genres = Genre::find($request->genres);
         $movie->genres()->attach($genres);
@@ -105,6 +108,8 @@ class MovieController extends Controller
         $movie->genres()->detach();
 
         $validated = $request->validated();
+        Storage::delete(Movie::find($movie->id)->cover);
+        $validated["cover"] = $validated["cover"]->store("covers");
         Movie::find($movie->id)->update($validated);
         $genres = Genre::find($request->genres);
         $movie->genres()->attach($genres);
@@ -121,6 +126,7 @@ class MovieController extends Controller
     public function destroy(Movie $movie)
     {
         //
+        Storage::delete($movie->cover);
         Movie::find($movie->id)->delete();
         $movie->genres()->detach();
         return redirect(route("movies.index"));
